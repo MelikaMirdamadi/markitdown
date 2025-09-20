@@ -1,0 +1,17 @@
+# Ignore test files and outputs
+example.pdf
+example_extracted.md
+*.pdf
+*_extracted.md
+test_*.pdf
+sample_*.pdf
+
+# Ignore temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+.pytest_cache/
