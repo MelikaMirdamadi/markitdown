@@ -30,6 +30,85 @@ MarkItDown currently supports the conversion from:
 - EPubs
 - ... and more!
 
+## Quick Start: PDF Extraction
+
+**Want to extract text from your PDF? Here's how:**
+
+### 1. Install MarkItDown
+```bash
+# Install with PDF support
+pip install 'markitdown[pdf]'
+
+# Or install with all format support
+pip install 'markitdown[all]'
+```
+
+### 2. Extract PDF Content
+
+**Command Line:**
+```bash
+# Convert PDF to markdown and display in terminal
+markitdown your-document.pdf
+
+# Save to a markdown file
+markitdown your-document.pdf -o extracted-text.md
+
+# Or using output redirection
+markitdown your-document.pdf > extracted-text.md
+```
+
+**Python Code:**
+```python
+from markitdown import MarkItDown
+
+# Initialize the converter
+md = MarkItDown()
+
+# Convert PDF to markdown
+result = md.convert("your-document.pdf")
+
+# Get the extracted text
+text_content = result.text_content
+print(text_content)
+
+# Or get the markdown with formatting
+markdown_content = result.markdown
+print(markdown_content)
+```
+
+**Docker:**
+```bash
+# Build the Docker image
+docker build -t markitdown:latest .
+
+# Convert PDF using Docker
+docker run --rm -i markitdown:latest < your-document.pdf > extracted-text.md
+```
+
+### 3. Advanced PDF Options
+
+For better PDF extraction with Azure Document Intelligence:
+```bash
+# Using Azure Document Intelligence (requires Azure setup)
+markitdown your-document.pdf -d -e "<your-document-intelligence-endpoint>"
+```
+
+```python
+# Python with Azure Document Intelligence
+from markitdown import MarkItDown
+
+md = MarkItDown(docintel_endpoint="<your-document-intelligence-endpoint>")
+result = md.convert("your-document.pdf")
+print(result.text_content)
+```
+
+### Troubleshooting PDF Extraction
+
+- **Missing dependencies error?** Install PDF dependencies with `pip install 'markitdown[pdf]'`
+- **Low-quality extraction?** Try Azure Document Intelligence for better OCR and structure recognition
+- **Large PDFs?** The extraction preserves text content but simplifies formatting for LLM consumption
+- **Scanned PDFs?** Consider using Azure Document Intelligence which includes OCR capabilities
+
 ## Why Markdown?
 
 Markdown is extremely close to plain text, with minimal markup or formatting, but still
@@ -175,6 +254,20 @@ md = MarkItDown(llm_client=client, llm_model="gpt-4o", llm_prompt="optional cust
 result = md.convert("example.jpg")
 print(result.text_content)
 ```
+
+### More Examples
+
+📂 **Check out the [examples directory](examples/) for comprehensive PDF extraction examples and other use cases:**
+
+- **[`examples/pdf_extraction_examples.py`](examples/pdf_extraction_examples.py)** - Complete PDF extraction examples with error handling, batch processing, and Azure Document Intelligence integration
+- **[`examples/README.md`](examples/README.md)** - Detailed guide for running the examples
+
+The examples include:
+- Basic PDF text extraction
+- Saving to markdown files
+- Batch processing multiple PDFs
+- Preview extraction
+- Advanced extraction with Azure Document Intelligence
 
 ### Docker
 
